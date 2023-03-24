@@ -393,6 +393,9 @@ if (process.env.NODE_ENV === 'production') {
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
 exports.default = App;
 
 var _react = __webpack_require__(1);
@@ -410,11 +413,21 @@ var _Navbar2 = _interopRequireDefault(_Navbar);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function App() {
+    var _React$useState = _react2.default.useState(true),
+        _React$useState2 = _slicedToArray(_React$useState, 2),
+        darkMode = _React$useState2[0],
+        setDarkMode = _React$useState2[1];
+
+    function toggleDarkMode() {
+        setDarkMode(function (prevMode) {
+            return !prevMode;
+        });
+    }
     return _react2.default.createElement(
         "div",
         { className: "container" },
-        _react2.default.createElement(_Navbar2.default, null),
-        _react2.default.createElement(_Main2.default, null)
+        _react2.default.createElement(_Navbar2.default, { darkMode: darkMode, toggleDarkMode: toggleDarkMode }),
+        _react2.default.createElement(_Main2.default, { darkMode: darkMode })
     );
 }
 
@@ -482,10 +495,10 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function Main() {
+function Main(props) {
     return _react2.default.createElement(
         "main",
-        null,
+        { className: props.darkMode ? "dark" : "" },
         _react2.default.createElement(
             "h1",
             { className: "main--title" },
@@ -541,20 +554,39 @@ var _react2 = _interopRequireDefault(_react);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function NavBar() {
+function NavBar(props) {
     return _react2.default.createElement(
         "nav",
-        null,
-        _react2.default.createElement("img", { src: "images/logo.png", className: "nav--icon" }),
+        { className: props.darkMode ? "dark" : "" },
+        _react2.default.createElement("img", { src: "./images/react-icon-small.png", className: "nav--icon" }),
         _react2.default.createElement(
             "h3",
             { className: "nav--logo_text" },
             "ReactFacts"
         ),
         _react2.default.createElement(
-            "h4",
-            { className: "nav--title" },
-            "React Course - Project 1"
+            "div",
+            {
+                className: "toggler"
+            },
+            _react2.default.createElement(
+                "p",
+                { className: "toggler--light" },
+                "Light"
+            ),
+            _react2.default.createElement(
+                "div",
+                {
+                    className: "toggler--slider",
+                    onClick: props.toggleDarkMode
+                },
+                _react2.default.createElement("div", { className: "toggler--slider--circle" })
+            ),
+            _react2.default.createElement(
+                "p",
+                { className: "toggler--dark" },
+                "Dark"
+            )
         )
     );
 }

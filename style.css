@@ -1,23 +1,35 @@
 * {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: Inter, sans-serif;
-    background-color: #282D35;
 }
 
+.container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
 nav {
     display: flex;
     align-items: center;
-    gap: 20px;
+    row-gap: 20px;
     flex-wrap: wrap;
-    background-color: #21222A;
+    background-color: #ffffff;
     min-height: 90px;
     padding: 30px 25px;
+    box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.25);
+    z-index: 1;
+    transition: background .5s ease-out;
+}
+
+nav.dark {
+    background-color: #21222A;
 }
 
 .nav--logo_text,
@@ -42,19 +54,91 @@ nav>img {
     margin-right: 7px;
 }
 
+.toggler {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
 
+.toggler p {
+    font-size: .8rem;
+    font-weight: 600;
+}
+
+.toggler--slider {
+    width: 25px;
+    height: 13px;
+    background-color: #2B283A;
+    border-radius: 2rem;
+    margin-inline: 7px;
+    cursor: pointer;
+    align-items: center;
+    border: 1px solid black;
+    box-sizing: content-box;
+}
+
+nav.dark .toggler--slider {
+    border-color: white;
+    background-color: #F5F5F5;
+}
+
+.toggler--slider--circle {
+    height: 13px;
+    width: 13px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform .25s ease-out;
+}
+
+nav.dark .toggler--slider--circle {
+    background-color: black;
+    transform: translateX(100%);
+    margin-left: -1px;
+}
+
+.toggler--light {
+    color: #2B283A;
+}
+
+nav.dark .toggler--light {
+    color: #918E9B;
+}
+
+.toggler--dark {
+    color: #D5D4D8;
+}
+
+nav.dark .toggler-dark {
+    color: #FFFFFF;
+}
+
+nav.dark .toggler--slider {
+    justify-content: flex-end;
+}
+
+
+/* MAIN styles */
 main {
     padding: 57px 27px;
-    color: white;
-    background-image: url('images/icon.png');
+    background-image: url("./images/react-icon-light.png");
     background-repeat: no-repeat;
-    background-position: right 75%;
+    background-position: right center;
+    flex: 1 1 auto;
+    background-color: white;
+    color: #2B283A;
+    transition: background .5s ease-out;
+}
+
+main.dark {
+    background-image: url("./images/react-icon-dark.png");
+    background-color: #282D35;
+    color: white;
 }
 
 .main--title {
     margin: 0;
     font-size: 39px;
-    letter-spacing: -0.05em;    
+    letter-spacing: -0.05em;
 }
 
 .main--facts {
@@ -62,12 +146,12 @@ main {
     max-width: 400px;
 }
 
-.main--facts > li {
+.main--facts>li {
     line-height: 19px;
     padding-block: 10px;
 }
 
-.main--facts > li::marker {
+.main--facts>li::marker {
     font-size: 1.4rem;
     color: #61DAFB;
 }
